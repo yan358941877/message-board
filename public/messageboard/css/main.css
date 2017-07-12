@@ -1,0 +1,14 @@
+.toast {
+  font-size: 14px;
+  position: fixed;
+  left: 50vw;
+  bottom: 2em;
+  transform: translateX(-50%);
+  width: 6em;
+  height: 2em;
+  line-height: 2em;
+  border-radius: 1em;
+  border: 1px solid #000;
+  box-shadow: 0 0 10px 5px #0CC;
+  text-align: center;
+}

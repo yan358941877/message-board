@@ -1,2 +1,1 @@
-var toast = require('../module/Toast')
-console.log('build success')
+var toast = require('../module/Toast').Toast

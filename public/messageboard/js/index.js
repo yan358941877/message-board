@@ -63,60 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(1)
-
-function Toast(msg, time) {
-  this.msg = msg
-  this.time = time || 1000
-  this.toast = null
-  this.createToast()
-  this.showToast()
-}
-
-Toast.prototype = {
-  constructor: Toast,
-  createToast: function () {
-    this.toast = $('<div>' + this.msg + '</div>')
-    this.toast.addClass('toast')
-    $('body').append(this.toast)
-  },
-  showToast: function () {
-    if (this.toast) {
-      this.toast.fadeIn(300, () => {
-        setTimeout(() => {
-          this.toast.fadeOut(300, () => {
-            this.toast.remove()
-          })
-        }, this.time)
-      })
-    } else {
-      return
-    }
-  },
-
-}
-function toastFactory(msg, time){
-  return new Toast(msg, time)
-}
-window.Toast = toastFactory
-module.exports.Toast = toastFactory
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10376,11 +10327,112 @@ return jQuery;
 
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(4)
+function Note(position = { x: 0, y: 0 }, id) {
+  this.x = position.x
+  this.y = position.y
+  this.id = id
+  this.$container = $('.note-list')
+  this.$element = $('<li></li>')
+  this.init()
+}
+
+Note.prototype = {
+  constructor: Note,
+  init: function(){
+    var date = new Date()
+    this.$element.html('<div class="note-item">'
+                      + '<div class="note-tape"></div>'
+                      + '<div class="note-content"></div>'
+                      + '<div class="note-info">'
+                      + '<p>' + this.id + '</p>'
+                      + '<p>' + date.toLocaleString() + '</p>'
+                      + '</div></div>')
+    this.$element.height(Math.floor(Math.random()*300))
+    this.$container.append(this.$element)
+  }
+}
+
+function noteFactory(position = { x: 0, y: 0 }) {
+  new Note(position)
+}
+window.noteFactory = noteFactory
+module.exports.noteFactory = noteFactory
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toast = __webpack_require__(0).Toast
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(5)
 
+function Toast(msg, time) {
+  this.msg = msg
+  this.time = time || 1000
+  this.toast = null
+  this.createToast()
+  this.showToast()
+}
+
+Toast.prototype = {
+  constructor: Toast,
+  createToast: function () {
+    this.toast = $('<div>' + this.msg + '</div>')
+    this.toast.addClass('toast')
+    $('body').append(this.toast)
+  },
+  showToast: function () {
+    if (this.toast) {
+      this.toast.fadeIn(300, () => {
+        setTimeout(() => {
+          this.toast.fadeOut(300, () => {
+            this.toast.remove()
+          })
+        }, this.time)
+      })
+    } else {
+      return
+    }
+  },
+
+}
+function toastFactory(msg, time){
+  return new Toast(msg, time)
+}
+window.Toast = toastFactory
+module.exports.toastFactory = toastFactory
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1)
+var noteFactory = __webpack_require__(2).noteFactory
+var toastdFactory = __webpack_require__(3).toastdFactory
+
+noteFactory()
 
 /***/ })
 /******/ ]);

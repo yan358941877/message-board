@@ -34,4 +34,4 @@ function toastFactory(msg, time){
   return new Toast(msg, time)
 }
 window.Toast = toastFactory
-module.exports.Toast = toastFactory
+module.exports.toastFactory = toastFactory

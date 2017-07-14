@@ -1,6 +1,29 @@
+@font-face {
+  font-family: "iconfont";
+  src: url(fonts/iconfont.eot);
+  /* IE9*/
+  src: url(fonts/iconfont.eot#iefix) format('embedded-opentype'),  url(fonts/iconfont.ttf) format('truetype'),  url(fonts/iconfont.svg#iconfont) format('svg');
+  /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-close::after {
+  font-family: "iconfont";
+  content: "\E725";
+}
 * {
   padding: 0;
   margin: 0;
+}
+body div,
+body p,
+body span {
+  font-size: 14px;
 }
 #header {
   display: flex;
@@ -11,6 +34,11 @@
 #header h5 {
   margin: 0 20px;
   cursor: pointer;
+}
+#header h5.github::before {
+  content: "\E732";
+  font-family: 'iconfont';
+  margin-right: 0.5em;
 }
 .note-list {
   list-style: none;
@@ -53,6 +81,12 @@
 }
 .note-item .note-info {
   text-align: right;
+  flex-shrink: 1;
+}
+.note-item span {
+  display: inline-block;
+  text-align: right;
+  cursor: pointer;
   flex-shrink: 1;
 }
 .toast {

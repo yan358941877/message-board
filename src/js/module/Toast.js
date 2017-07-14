@@ -1,4 +1,4 @@
-require('../style/Toast.less')
+require('../../style/Toast.less')
 
 function Toast(msg, time) {
   this.msg = msg

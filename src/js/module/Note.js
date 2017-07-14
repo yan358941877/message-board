@@ -29,7 +29,7 @@ Note.prototype = {
     })
     var $noteInfo = $('<div class="note-info">'
                   + '<p>' + this.id + '</p>'
-                  + '<p>' + date.toLocaleString() + '</p>'
+                  + '<p class="time">' + date.toLocaleString() + '</p>'
                   + '</div>')
     $noteItem.append($closeBtn)
     $noteItem.append($noteContent)

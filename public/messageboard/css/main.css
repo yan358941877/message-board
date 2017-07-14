@@ -40,6 +40,15 @@ body span {
   font-family: 'iconfont';
   margin-right: 0.5em;
 }
+#note-container {
+  width: 90%;
+  margin: 0 auto;
+}
+#note-container::after {
+  content: '';
+  display: block;
+  clear: both;
+}
 .note-list {
   list-style: none;
   position: relative;
@@ -85,6 +94,9 @@ body span {
 .note-item .note-info {
   text-align: right;
   flex-shrink: 1;
+}
+.note-item .note-info .time {
+  margin-top: 5px;
 }
 .note-item span {
   display: inline-block;

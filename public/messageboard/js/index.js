@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10336,12 +10336,12 @@ return jQuery;
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(4)
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(5)
 function Note(position = { x: 0, y: 0 }, id) {
   this.x = position.x
   this.y = position.y
   this.id = id
-  this.$container = $('.note-list')
+  this.$container = $('#note-list')
   this.$element = $('<li></li>')
   this.init()
 }
@@ -10364,6 +10364,7 @@ Note.prototype = {
     })
     $noteContent.on('focus', function(){
       //alert('开始编辑')
+      // 每编辑完一次，都触发一次瀑布流布局
     })
     var $noteInfo = $('<div class="note-info">'
                   + '<p>' + this.id + '</p>'
@@ -10372,9 +10373,14 @@ Note.prototype = {
     $noteItem.append($closeBtn)
     $noteItem.append($noteContent)
     $noteItem.append($noteInfo)
+
     this.$element.html($noteItem)
     //this.$element.height(Math.floor(Math.random()*300))
+    // 获取note的位置，并设置left和top
+    //this.$element.css({"left": "30px", "top": "30px"})
+    // 获取初始化条件下，note的高度，并设置note的高度
     this.$container.append(this.$element)
+    // 触发一次瀑布流布局
   }
 }
 
@@ -10389,7 +10395,7 @@ module.exports.noteFactory = noteFactory
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(5)
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(6)
 
 function Toast(msg, time) {
   this.msg = msg
@@ -10430,9 +10436,31 @@ module.exports.toastFactory = toastFactory
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+/* WEBPACK VAR INJECTION */(function($) {function waterfall(id) {
+  var $container = $(id),
+    totalWidth = $container.width(),
+    $items = $container.children(),
+    width = 240,
+    columnNum = Math.floor(totalWidth / width),
+    shareRest = (totalWidth - columnNum * width) / columnNum,
+    columnsHeight = new Array(columnNum)
+  columnsHeight.fill(0)
+  for (var i = 0, len = $items.length; i < len; i++) {
+    var minHeight = Math.min.apply(null, columnsHeight)
+    var minIndex = columnsHeight.indexOf(minHeight)
+    if (minIndex == 0) {
+      $items.eq(i).css({"left": width*minIndex + shareRest/2 + "px", "top": minHeight + "px"})
+    } else {
+      $items.eq(i).css({"left": width*minIndex + shareRest*minIndex + shareRest/2+ "px", "top": minHeight + "px"})
+    }
+    columnsHeight[minIndex] += $items.eq(i).innerHeight()
+  }
+}
+
+module.exports.waterfall = waterfall
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 5 */
@@ -10442,13 +10470,25 @@ module.exports.toastFactory = toastFactory
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1)
 var noteFactory = __webpack_require__(2).noteFactory
 var toastdFactory = __webpack_require__(3).toastdFactory
-
+var waterfall = __webpack_require__(4).waterfall
 noteFactory()
+noteFactory()
+noteFactory()
+noteFactory()
+noteFactory()
+noteFactory()
+waterfall('#note-list')
 
 /***/ })
 /******/ ]);

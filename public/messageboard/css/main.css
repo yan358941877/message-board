@@ -25,11 +25,15 @@ body p,
 body span {
   font-size: 14px;
 }
+body {
+  background: #00796b;
+}
 #header {
   display: flex;
   justify-content: space-between;
   padding: 20px;
   border-bottom: 1px solid #888;
+  background: #fff;
 }
 #header h5 {
   margin: 0 20px;
@@ -49,19 +53,16 @@ body span {
   display: block;
   clear: both;
 }
-.note-list {
+#note-list {
   list-style: none;
   position: relative;
   width: 100%;
 }
-.note-list li {
+#note-list li {
   width: 240px;
-  min-height: 200px;
-  float: left;
-  border: 1px solid #000;
+  position: absolute;
   box-sizing: border-box;
   padding: 20px 10px 10px 10px;
-  background: #dedede;
 }
 .note-item {
   display: flex;

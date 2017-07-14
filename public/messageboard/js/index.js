@@ -99,7 +99,8 @@ Toast.prototype = {
     } else {
       return
     }
-  }
+  },
+
 }
 function toastFactory(msg, time){
   return new Toast(msg, time)

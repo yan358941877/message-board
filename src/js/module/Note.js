@@ -34,9 +34,10 @@ Note.prototype = {
     })
     $noteContent.on('blur', ()=>{
       //alert('结束编辑')每编辑完一次，都触发一次瀑布流布局
-      if(this.content !== $noteContent.text() && $noteContent.text()){
+      if($noteContent.text()!==this.content) {
         Observer.fire('modifyNote')
-      } else {
+      }
+      if(!$noteContent.text()){
         $noteContent.text('请输入内容')
       }
       this.$element.css({"z-index": "10"})

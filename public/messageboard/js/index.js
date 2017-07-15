@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10330,16 +10330,60 @@ return jQuery;
 /* 1 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+var __messages = {}
+var Observer = {
+  // 注册信息接口
+  regist: function (type, fn) {
+    // 如果该类型的消息在__messages中不存在，则新建一个
+    if (typeof __messages[type] === 'undefined') {
+      __messages[type] = [fn]
+    } else {
+      __messages[type].push(fn)
+    }
+  },
+  // 发布信息接口
+  fire: function (type, args) {
+    // 如果该类型的消息在__messages中没有注册，则直接返回
+    if (!__messages[type]) {
+      return
+    }
+    var events = {
+      type: type,
+      args: args || {}
+    },
+      i = 0,
+      len = __messages[type].length
+    for (; i < len; i++) {
+      __messages[type][i].call(this, events)
+    }
+  },
+  // 移除信息接口
+  remove: function (type, fn) {
+    if (__messages[type] instanceof Array) {
+      var i = __messages[type].length - 1
+      for (; i >= 0; i--) {
+        __messages[type][i] === fn && __messages[type].splice(i, 1)
+      }
+    }
+  }
+}
+
+module.exports = Observer
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(5)
-function Note(position = { x: 0, y: 0 }, id) {
-  this.x = position.x
-  this.y = position.y
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(6)
+var Observer = __webpack_require__(1)
+
+function Note(id) {
   this.id = id
   this.$container = $('#note-list')
   this.$element = $('<li></li>')
@@ -10354,17 +10398,30 @@ Note.prototype = {
                   + '<div class="note-tape"></div>'
                   + '</div>')
     var $closeBtn = $('<span><i class="iconfont icon-close"></i><span>')
-    $closeBtn.on("click", function(){
+    $closeBtn.on("click", ()=>{
       // 发送一个消息，删除对应的note
+      this.$element.remove()
+      Observer.fire('deleteNote')
     })
     var $noteContent = $('<div class="note-content" contenteditable="plaintext-only"></div>')
     $noteContent.text('请输入内容')
-    $noteContent.on('blur', function(){
-      //alert('结束编辑')
-    })
-    $noteContent.on('focus', function(){
+
+    $noteContent.on('focus', ()=>{
       //alert('开始编辑')
-      // 每编辑完一次，都触发一次瀑布流布局
+      this.content = $noteContent.text()
+      if(this.content=="请输入内容"){
+        $noteContent.text('')
+      }
+      this.$element.css({"z-index": "100"});
+    })
+    $noteContent.on('blur', ()=>{
+      //alert('结束编辑')每编辑完一次，都触发一次瀑布流布局
+      if(this.content !== $noteContent.text() && $noteContent.text()){
+        Observer.fire('modifyNote')
+      } else {
+        $noteContent.text('请输入内容')
+      }
+      this.$element.css({"z-index": "10"})
     })
     var $noteInfo = $('<div class="note-info">'
                   + '<p>' + this.id + '</p>'
@@ -10384,18 +10441,19 @@ Note.prototype = {
   }
 }
 
-function noteFactory(position = { x: 0, y: 0 }) {
-  new Note(position)
+function noteFactory(id) {
+  //console.dir(events.args.id)
+  new Note(id)
 }
-window.noteFactory = noteFactory
+
 module.exports.noteFactory = noteFactory
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(6)
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(7)
 
 function Toast(msg, time) {
   this.msg = msg
@@ -10435,7 +10493,7 @@ module.exports.toastFactory = toastFactory
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {function waterfall(id) {
@@ -10463,12 +10521,6 @@ module.exports.waterfall = waterfall
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
@@ -10476,19 +10528,63 @@ module.exports.waterfall = waterfall
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1)
-var noteFactory = __webpack_require__(2).noteFactory
-var toastdFactory = __webpack_require__(3).toastdFactory
-var waterfall = __webpack_require__(4).waterfall
-noteFactory()
-noteFactory()
-noteFactory()
-noteFactory()
-noteFactory()
-noteFactory()
-waterfall('#note-list')
+/* WEBPACK VAR INJECTION */(function($) {__webpack_require__(2)
+var noteFactory = __webpack_require__(3).noteFactory
+var toastFactory = __webpack_require__(4).toastFactory
+var waterfall = __webpack_require__(5).waterfall
+var Observer = __webpack_require__(1)
+
+var btn_addnote = $('#header>h5').eq(0)
+btn_addnote.on('click', function(){
+  Observer.fire('addNote', {id: 'yanxin'})
+})
+
+// 注册addNote事件
+Observer.regist('addNote', ()=>{
+  noteFactory('yanxin')
+})
+Observer.regist('addNote', ()=>{
+  toastFactory('添加成功')
+})
+Observer.regist('addNote', ()=>{
+  waterfall('#note-list')
+})
+
+// 注册deleteNote事件
+Observer.regist('deleteNote', ()=>{
+  toastFactory('删除成功')
+})
+Observer.regist('deleteNote', ()=>{
+  waterfall('#note-list')
+})
+
+// 注册modifyNote事件
+Observer.regist('modifyNote', ()=>{
+  toastFactory('修改成功')
+})
+Observer.regist('modifyNote', ()=>{
+  waterfall('#note-list')
+})
+
+$(window).on('resize', ()=>{
+  waterfall('#note-list')
+})
+// noteFactory()
+// noteFactory()
+// noteFactory()
+// noteFactory()
+// noteFactory()
+// noteFactory()
+//  
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);

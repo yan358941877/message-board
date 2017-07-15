@@ -61,8 +61,10 @@ body {
 #note-list li {
   width: 240px;
   position: absolute;
+  z-index: 10;
   box-sizing: border-box;
   padding: 20px 10px 10px 10px;
+  transition: all 0.4s;
 }
 .note-item {
   display: flex;

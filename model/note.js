@@ -26,16 +26,23 @@ var Note = sequelize.define('noteinfo', {
   },
   username: {
     type: Sequelize.STRING
+  },
+  updateDate: {
+    type: Sequelize.STRING
   }
 })
 
 
-//往noteinfo表中插入一条数据，然后将表中的数据全部输出
+// //往noteinfo表中插入一条数据，然后将表中的数据全部输出
 // Note.sync().then(() => {
-//   // Note.create({
-//   //   content: '今天完成任务',
-//   //   username: 'yanxin'
-//   // })
+//   const date = new Date()
+//   const updateDate = date.toLocaleString()
+//   Note.create({
+//     id: 1,
+//     content: '今天完成任务',
+//     username: 'yanxin',
+//     updateDate: updateDate
+//   })
 // }).then(() => {
 //   Note.findAll({raw: true}).then(note => {
 //     console.log(note)

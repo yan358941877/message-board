@@ -30,8 +30,8 @@ Toast.prototype = {
   },
 
 }
-function toastFactory(msg, time){
-  return new Toast(msg, time)
+function toastFactory(events){
+  return new Toast(events.args.msg)
 }
 window.Toast = toastFactory
 module.exports.toastFactory = toastFactory

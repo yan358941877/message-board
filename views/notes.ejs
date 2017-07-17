@@ -18,19 +18,7 @@
   </header>
   <div id="note-container">
     <ul id="note-list">
-      <% notes.map(function(note){ %>
-        <li>
-          <div class="note-item">
-            <div class="note-tape"></div>
-            <span><i class="iconfont icon-close"></i></span>
-          <div class="note-content" contenteditable="plaintext-only"><%=note.content %></div>
-          <div class="note-info">
-            <p><%=note.username %></p>
-            <p class="time"><%=note.updateDate %></p>
-          </div>
-        </div>
-      </li>
-    <% }) %>
+      
     </ul>
   </div>
   <script src="/messageboard/js/index.js"></script>

@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -10538,11 +10538,13 @@ module.exports.waterfall = waterfall
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {__webpack_require__(2)
-var noteFactory = __webpack_require__(3).noteFactory
-var toastFactory = __webpack_require__(4).toastFactory
-var waterfall = __webpack_require__(5).waterfall
-var Observer = __webpack_require__(1)
 
+const noteFactory = __webpack_require__(3).noteFactory
+const toastFactory = __webpack_require__(4).toastFactory
+const waterfall = __webpack_require__(5).waterfall
+const Observer = __webpack_require__(1)
+
+waterfall('#note-list');
 var btn_addnote = $('#header>h5').eq(0)
 btn_addnote.on('click', function(){
   Observer.fire('addNote', {id: 'yanxin'})

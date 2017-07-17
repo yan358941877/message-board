@@ -11,11 +11,13 @@ router.get('/total', function (req, res, next) {
 
 router.post('/create', function (req, res, next) {
   //console.log(req.body.content)
+  const date = new Date()
+  const updateDate = date.toLocaleString()
   const { username, content } = req.body
   if (!username) {
     res.send({ status: 1, errMsg: '请登录' })
   } else {
-    Note.create({ username, content })
+    Note.create({ username, content, updateDate })
       .then((note) => {
         res.send({ status: 0, id: note.dataValues.id })
       }).catch(() => {
@@ -25,8 +27,10 @@ router.post('/create', function (req, res, next) {
 })
 
 router.post('/modify', function (req, res, next) {
+  const date = new Date()
+  const updateDate = date.toLocaleString()
   const { username, content, id } = req.body
-  Note.update({ content }, {
+  Note.update({ content, updateDate }, {
     where: { id, username }
   }).then((result) => {
     if (result.length === 0) {

@@ -1,9 +1,11 @@
 require('../../style/index.less')
-var noteFactory = require('../module/Note').noteFactory
-var toastFactory = require('../module/Toast').toastFactory
-var waterfall = require('../module/Waterfall').waterfall
-var Observer = require('../module/Observer')
 
+const noteFactory = require('../module/Note').noteFactory
+const toastFactory = require('../module/Toast').toastFactory
+const waterfall = require('../module/Waterfall').waterfall
+const Observer = require('../module/Observer')
+
+waterfall('#note-list');
 var btn_addnote = $('#header>h5').eq(0)
 btn_addnote.on('click', function(){
   Observer.fire('addNote', {id: 'yanxin'})

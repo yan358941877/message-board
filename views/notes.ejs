@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>
+    <%= title%>
+  </title>
+  <link rel="stylesheet" href="/messageboard/css/main.css">
+</head>
+
+<body>
+  <header id="header">
+    <h5>添加留言</h5>
+    <h5 class="login github">Github登录</h5>
+  </header>
+  <div id="note-container">
+    <ul id="note-list">
+      <% notes.map(function(note){ %>
+        <li>
+          <div class="note-item">
+            <div class="note-tape"></div>
+            <span><i class="iconfont icon-close"></i></span>
+          <div class="note-content" contenteditable="plaintext-only"><%=note.content %></div>
+          <div class="note-info">
+            <p><%=note.username %></p>
+            <p class="time"><%=note.updateDate %></p>
+          </div>
+        </div>
+      </li>
+    <% }) %>
+    </ul>
+  </div>
+  <script src="/messageboard/js/index.js"></script>
+</body>
+
+</html>
+

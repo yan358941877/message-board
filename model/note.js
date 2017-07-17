@@ -32,10 +32,10 @@ var Note = sequelize.define('noteinfo', {
 
 //往noteinfo表中插入一条数据，然后将表中的数据全部输出
 // Note.sync().then(() => {
-//   Note.create({
-//     content: '今天完成任务',
-//     username: 'yanxin'
-//   })
+//   // Note.create({
+//   //   content: '今天完成任务',
+//   //   username: 'yanxin'
+//   // })
 // }).then(() => {
 //   Note.findAll({raw: true}).then(note => {
 //     console.log(note)

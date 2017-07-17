@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize')
+const path = require('path')
 
 const sequelize = new Sequelize(undefined, undefined, undefined, {
   host: 'localhost',
   dialect: 'sqlite',
-  storage: '../database/database.sqlite'
+  storage: path.join(__dirname, '../database/database.sqlite')
 })
 
 // // 测试是否能连接到数据库
@@ -30,23 +31,15 @@ var Note = sequelize.define('noteinfo', {
 
 
 //往noteinfo表中插入一条数据，然后将表中的数据全部输出
-Note.sync().then(() => {
-  Note.create({
-    content: '今天完成任务',
-    username: 'yanxin'
-  })
-}).then(() => {
-  Note.findAll({raw: true}).then(note => {
-    console.log(note)
-  })
-})
-
-// 将noteinfo表中的所有数据输出
-
-
-// var Note = sequelize.model('noteinfo')
-// // 将noteinfo表中的所有数据输出
-// Note.findAll().then(note => {
-//   console.log(note)
+// Note.sync().then(() => {
+//   Note.create({
+//     content: '今天完成任务',
+//     username: 'yanxin'
+//   })
+// }).then(() => {
+//   Note.findAll({raw: true}).then(note => {
+//     console.log(note)
+//   })
 // })
 
+module.exports = Note

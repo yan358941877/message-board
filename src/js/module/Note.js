@@ -73,7 +73,7 @@ Note.prototype = {
     // 触发一次瀑布流布局
   },
   delete: function () {
-    fetch('/api/note/delete', {
+    fetch('/notes/api/delete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ Note.prototype = {
     })
   },
   modify: function () {
-    fetch('/api/note/modify', {
+    fetch('/notes/api/modify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

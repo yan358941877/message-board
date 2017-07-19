@@ -2,15 +2,35 @@ var express = require('express');
 var Note = require('../model/note');
 var router = express.Router();
 
+router.get('/', function(req, res, next) {
+  var data;
+  if(req.session.user){
+    data = {
+      isLogin: true,
+      user: req.session.user
+    }
+  }else{
+    data = {
+      isLogin: false
+    }
+  }
+  data.title = '留言板'
+  res.render('notes', data);
+  // Note.findAll({ raw: true }).then((notes) => {
+  //   //console.log(typeof notes[0].createdAt)
+  //   res.render('notes', { title: '留言板', notes})
+  // })
+  
+});
 /* GET users listing. */
-router.get('/total', function (req, res, next) {
+router.get('/api/total', function (req, res, next) {
   var user = req.session.user ? req.session.user: null
   Note.findAll({ raw: true }).then((notes) => {
     res.send({ status: 0, data: notes, user })
   })
 });
 
-router.post('/create', function (req, res, next) {
+router.post('/api/create', function (req, res, next) {
   //console.log(req.body.content)
   const date = new Date()
   const updateDate = date.toLocaleString()
@@ -27,7 +47,7 @@ router.post('/create', function (req, res, next) {
   }
 })
 
-router.post('/modify', function (req, res, next) {
+router.post('/api/modify', function (req, res, next) {
   const date = new Date()
   const updateDate = date.toLocaleString()
   const { username, content, id } = req.body
@@ -44,7 +64,7 @@ router.post('/modify', function (req, res, next) {
   })
 })
 
-router.post('/delete', function (req, res, next) {
+router.post('/api/delete', function (req, res, next) {
   const { username, id } = req.body
   Note.destroy(
     { where: {username, id } }

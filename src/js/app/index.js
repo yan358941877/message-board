@@ -5,7 +5,7 @@ const toastFactory = require('../module/Toast').toastFactory
 const waterfall = require('../module/Waterfall').waterfall
 const Observer = require('../module/Observer')
 
-fetch('/api/note/total').then(response => {
+fetch('notes/api/total').then(response => {
     return response.json()
   }).then(json => {
     const status = json.status
@@ -26,7 +26,7 @@ waterfall('#note-list');
 var btn_addnote = $('#header>h5').eq(0)
 
 btn_addnote.on('click', function(){
-  fetch('/api/note/create', {
+  fetch('/notes/api/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

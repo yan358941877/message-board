@@ -10455,7 +10455,7 @@ Note.prototype = {
     // 触发一次瀑布流布局
   },
   delete: function () {
-    fetch('/api/note/delete', {
+    fetch('/notes/api/delete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -10474,7 +10474,7 @@ Note.prototype = {
     })
   },
   modify: function () {
-    fetch('/api/note/modify', {
+    fetch('/notes/api/modify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -10596,7 +10596,7 @@ const toastFactory = __webpack_require__(4).toastFactory
 const waterfall = __webpack_require__(5).waterfall
 const Observer = __webpack_require__(1)
 
-fetch('/api/note/total').then(response => {
+fetch('notes/api/total').then(response => {
     return response.json()
   }).then(json => {
     const status = json.status
@@ -10617,7 +10617,7 @@ waterfall('#note-list');
 var btn_addnote = $('#header>h5').eq(0)
 
 btn_addnote.on('click', function(){
-  fetch('/api/note/create', {
+  fetch('/notes/api/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

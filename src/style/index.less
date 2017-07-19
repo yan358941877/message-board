@@ -11,14 +11,29 @@ body {
   padding: 20px;
   border-bottom: 1px solid #888;
   background: #fff;
-  h5 {
+  h5.add-note {
     margin: 0 20px;
-    cursor: pointer; 
+    cursor: pointer;
+  }
+  h5.login.github {
+    a {
+      text-decoration: none;
+      color: #000;
+    } 
   }
   h5.github::before {
     content: @icon-github;
     font-family: 'iconfont';
     margin-right: 0.5em;
+  }
+  .user-action{
+    .userimg {
+      height: 2em;
+    }
+    .logout {
+      text-decoration: none;
+      color: #000;
+    }
   }
 }
 

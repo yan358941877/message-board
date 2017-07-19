@@ -23,7 +23,7 @@
 body div,
 body p,
 body span {
-  font-size: 14px;
+  font-size: 16px;
 }
 body {
   background: #00796b;
@@ -35,14 +35,25 @@ body {
   border-bottom: 1px solid #888;
   background: #fff;
 }
-#header h5 {
+#header h5.add-note {
   margin: 0 20px;
   cursor: pointer;
+}
+#header h5.login.github a {
+  text-decoration: none;
+  color: #000;
 }
 #header h5.github::before {
   content: "\E732";
   font-family: 'iconfont';
   margin-right: 0.5em;
+}
+#header .user-action .userimg {
+  height: 2em;
+}
+#header .user-action .logout {
+  text-decoration: none;
+  color: #000;
 }
 #note-container {
   width: 90%;
@@ -108,7 +119,7 @@ body {
   flex-shrink: 1;
 }
 .toast {
-  font-size: 14px;
+  font-size: 16px;
   position: fixed;
   left: 50vw;
   bottom: 2em;

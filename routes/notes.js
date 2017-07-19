@@ -4,8 +4,9 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/total', function (req, res, next) {
+  var user = req.session.user ? req.session.user: null
   Note.findAll({ raw: true }).then((notes) => {
-    res.send({ status: 0, data: notes })
+    res.send({ status: 0, data: notes, user })
   })
 });
 

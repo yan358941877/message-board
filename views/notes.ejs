@@ -13,14 +13,14 @@
 
 <body>
   <header id="header">
-    <h5>添加留言</h5>
-    <div>
+    <h5 class="add-note">添加留言</h5>
+    <div class="user-action">
     <% if(!isLogin){ %>
     <h5 class="login github"><a class="login username" href="/auth/github">Github登录</a></h5>
     <% } else{ %>
-    <img src="<%=user.avatar %>"/>
-    <span><%= user.username%></span>
-    <a href="/auth/logout">注销</a>
+    <img class="userimg" src="<%=user.avatar %>"/>
+    <span class="username"><%= user.username%> | </span>
+    <a class="logout" href="/auth/logout">注销</a>
     <% } %>
     </div>
   </header>

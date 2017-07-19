@@ -30,7 +30,7 @@ passport.use(new GitHubStrategy({
 
 router.get('/logout', function(req, res){
   req.session.destroy();
-  res.redirect('/');
+  res.redirect('/notes');
 })
 
 router.get('/github',

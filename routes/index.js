@@ -8,10 +8,24 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/notes', function(req, res, next) {
-  Note.findAll({ raw: true }).then((notes) => {
-    //console.log(typeof notes[0].createdAt)
-    res.render('notes', { title: '留言板', notes})
-  })
+  var data;
+  if(req.session.user){
+    data = {
+      isLogin: true,
+      user: req.session.user
+    }
+  }else{
+    data = {
+      isLogin: false
+    }
+  }
+  data.title = '留言板'
+  console.log(data)
+  res.render('notes', data);
+  // Note.findAll({ raw: true }).then((notes) => {
+  //   //console.log(typeof notes[0].createdAt)
+  //   res.render('notes', { title: '留言板', notes})
+  // })
   
 });
 module.exports = router;
